@@ -1,0 +1,39 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Rider / JetBrains IDE
+.idea/
+
+# Build results
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Entity Framework Migrations snapshots
+[Mm]igrations/*Designer.cs
+
+# Others
+*.db
+*.mdf
+*.ldf
+
+# Auto-generated files
+*.GeneratedMSBuildEditorConfig.editorconfig
+*.AssemblyInfo.cs
+*.GlobalUsings.g.cs

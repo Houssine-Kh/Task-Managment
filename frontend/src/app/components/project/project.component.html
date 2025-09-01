@@ -1,0 +1,33 @@
+<div class="project-container">
+  <h1>Projects</h1>
+
+  <mat-form-field appearance="outline">
+    <mat-label>New Project</mat-label>
+    <input matInput [(ngModel)]="newProjectName" placeholder="Enter project name">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="createProject()">Add Project</button>
+
+  <table mat-table [dataSource]="projects" class="mat-elevation-z8">
+
+    <!-- Project Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Project </th>
+      <td mat-cell *matCellDef="let project"> {{ project.name }} </td>
+    </ng-container>
+
+    <!-- Tasks Column -->
+    <ng-container matColumnDef="tasks">
+      <th mat-header-cell *matHeaderCellDef> Tasks </th>
+      <td mat-cell *matCellDef="let project">
+        <mat-chip-listbox>
+          <mat-chip *ngFor="let task of project.tasks" [color]="getChipColor(task.status)" selected>
+            {{ task.title }} ({{ task.status }})
+          </mat-chip>
+        </mat-chip-listbox>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
