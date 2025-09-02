@@ -1,0 +1,26 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+
+# Copy solution and project files
+COPY ["TaskManagement.sln", "./"]
+COPY ["src/Api/Api.csproj", "src/Api/"]
+COPY ["src/Application/Application.csproj", "src/Application/"]
+COPY ["src/Domain/Domain.csproj", "src/Domain/"]
+COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
+
+# Restore dependencies
+RUN dotnet restore "TaskManagement.sln"
+
+# Copy source code
+COPY . .
+
+# Publish API
+WORKDIR "/src/src/Api"
+RUN dotnet publish "Api.csproj" -c Release -o /app/publish
+
+# Runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
+WORKDIR /app
+COPY --from=build /app/publish .
+EXPOSE 5000
+ENTRYPOINT ["dotnet", "Api.dll"]
